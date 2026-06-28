@@ -1,42 +1,64 @@
 # NES Ticket
 
-Aplikasi mobile untuk sistem manajemen tiket yang dibangun dengan arsitektur modern dan performa tinggi menggunakan Flutter.
+A modern mobile ticket management application built with Flutter, focusing on high performance, maintainability, and a scalable architecture.
 
-## 🛠 Spesifikasi Teknis
-- **Flutter SDK:** 3.44.2
+## 🛠 Technical Specifications
 
-## 🚀 Fitur Utama
+- **Flutter SDK:** 3.44.4
 
-- **State Management:** Menggunakan `Riverpod` untuk manajemen state yang reaktif dan mudah di-maintain.
-- **Offline Capabilities:** Integrasi `Hive` (Community Edition) untuk penyimpanan data lokal yang cepat.
-- **Networking:** Komunikasi API yang terstruktur menggunakan `Dio`.
-- **Immutable Models:** Data model yang aman dengan `Freezed` dan `json_serializable`.
-- **Secure Storage:** Penyimpanan kredensial sensitif menggunakan `flutter_secure_storage`.
-- **Crash Reporting:** Monitoring stabilitas aplikasi dengan `Firebase Crashlytics`.
-- **Asset Management:** Akses aset (gambar/ikon) yang aman dan otomatis dengan `flutter_gen`.
+## 🚀 Features
 
-## 📦 Tech Stack & Packages
+- **Reactive State Management** using `Riverpod`.
+- **Offline Support** powered by `Hive Community Edition` for fast local data storage.
+- **Robust Networking** with `Dio` for clean and efficient API communication.
+- **Immutable Data Models** using `Freezed` and `json_serializable`.
+- **Secure Storage** for sensitive data with `flutter_secure_storage`.
+- **Type-safe Asset Management** using `flutter_gen`.
 
-### Utama
+## 📦 Tech Stack
+
+### Core
+
 - **State Management:** `flutter_riverpod`, `riverpod_annotation`
 - **Networking:** `dio`
-- **Database:** `hive_ce`, `hive_ce_flutter`
-- **Security:** `flutter_secure_storage`
-- **Firebase:** `firebase_core`, `firebase_crashlytics`
+- **Local Database:** `hive_ce`, `hive_ce_flutter`
+- **Secure Storage:** `flutter_secure_storage`
 
 ### UI & Assets
+
 - **Icons:** `phosphoricons_flutter`
 - **Fonts:** `google_fonts`
 - **Images:** `cached_network_image`, `flutter_svg`
 
-### Development Tools
-- `build_runner` & `riverpod_generator`
+### Development
+
+- `build_runner`
+- `riverpod_generator`
 - `freezed`
 - `flutter_gen_runner`
 
-## 🛠 Pengembangan
+## 📱 Screenshots
 
-Proyek ini menggunakan *code generation*. Jika Anda melakukan perubahan pada *model*, *provider*, atau menambahkan aset, jalankan perintah berikut di terminal:
+<p align="center">
+  <img src="assets/screenshots/1.png" width="220" alt="Screenshot 1"/>
+  <img src="assets/screenshots/2.png" width="220" alt="Screenshot 2"/>
+  <img src="assets/screenshots/3.png" width="220" alt="Screenshot 3"/>
+</p>
+
+<p align="center">
+  <img src="assets/screenshots/4.png" width="220" alt="Screenshot 4"/>
+  <img src="assets/screenshots/5.png" width="220" alt="Screenshot 5"/>
+  <img src="assets/screenshots/6.png" width="220" alt="Screenshot 6"/>
+</p>
+
+<p align="center">
+  <img src="assets/screenshots/7.png" width="220" alt="Screenshot 7"/>
+</p>
+
+## 🛠 Development
+
+This project uses **code generation**. Whenever you modify models, providers, or assets, run the following command:
 
 ```bash
 dart run build_runner build --delete-conflicting-outputs
+```
