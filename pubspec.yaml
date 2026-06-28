@@ -1,0 +1,49 @@
+name: nes_ticket
+description: "A new Flutter project."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_riverpod: ^3.3.2
+  riverpod_annotation: ^4.0.3
+  json_annotation: ^4.12.0
+  freezed_annotation: ^3.1.0
+  dio: ^5.9.2
+  flutter_svg: ^2.3.0
+  google_fonts: ^8.1.0
+  phosphoricons_flutter: ^1.0.0
+  cached_network_image: ^3.4.1
+  hive_ce: ^2.19.3
+  hive_ce_flutter: ^2.3.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+  flutter_gen_runner: ^5.14.1
+  build_runner: ^2.15.0
+  riverpod_generator: ^4.0.4
+  riverpod_lint: ^3.1.4
+  freezed: ^3.2.5
+  json_serializable: ^6.14.0
+  hive_ce_generator: ^1.11.2
+  flutter_native_splash: ^2.4.8
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+
+flutter_gen:
+  integrations:
+    flutter_svg: true
