@@ -161,120 +161,123 @@ class _CreditScreenState extends ConsumerState<CreditScreen> {
           ),
         ),
       ),
-      body: RefreshIndicator.adaptive(
-        onRefresh: () => ref.refresh(provider.future),
-        child: state.when(
-          data: (datas) {
-            if (datas == null) {
-              return CustomScrollView(
-                slivers: [
-                  SliverFillRemaining(
-                    child: EmptyCard(
-                      'Wah, bagian ini masih kosong',
-                      bottomSpacing: bottomSpacing,
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 24),
+        child: RefreshIndicator.adaptive(
+          onRefresh: () => ref.refresh(provider.future),
+          child: state.when(
+            data: (datas) {
+              if (datas == null) {
+                return CustomScrollView(
+                  slivers: [
+                    SliverFillRemaining(
+                      child: EmptyCard(
+                        'Wah, bagian ini masih kosong',
+                        bottomSpacing: bottomSpacing,
+                      ),
                     ),
-                  ),
-                ],
-              );
-            }
-
-            final List<Widget> listItems = [];
-
-            final casts = datas.cast ?? [];
-            final crews = datas.crew ?? [];
-
-            if (isAll || isCast) {
-              if (casts.isNotEmpty) {
-                listItems.add(
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 12),
-                    child: _buildLabel(title: 'Pemeran', count: casts),
-                  ),
-                );
-
-                listItems.addAll(
-                  casts.map(
-                    (cast) => _buildCard(
-                      id: cast.id,
-                      path: cast.profilePath,
-                      title: cast.character,
-                      subtitle: cast.name,
-                    ),
-                  ),
+                  ],
                 );
               }
-            }
 
-            if (isAll || isCrew) {
-              if (crews.isNotEmpty) {
-                listItems.add(
-                  Padding(
-                    padding: EdgeInsets.only(
-                      bottom: 12,
-                      top: (isAll && casts.isNotEmpty) ? 16 : 0,
-                    ),
-                    child: _buildLabel(title: 'Kru', count: crews),
-                  ),
-                );
+              final List<Widget> listItems = [];
 
-                final Map<String, List<MemberModel>> groupedCrew = {};
-                for (var c in crews) {
-                  final department = c.department ?? 'Lainnya';
-                  groupedCrew.putIfAbsent(department, () => []).add(c);
-                }
+              final casts = datas.cast ?? [];
+              final crews = datas.crew ?? [];
 
-                groupedCrew.forEach((department, members) {
+              if (isAll || isCast) {
+                if (casts.isNotEmpty) {
                   listItems.add(
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8),
-                      child: Text(
-                        department,
-                        style: GoogleFonts.plusJakartaSans(
-                          color: Color(0xFF555555),
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                        ),
-                      ),
+                      padding: EdgeInsets.only(bottom: 12),
+                      child: _buildLabel(title: 'Pemeran', count: casts),
                     ),
                   );
 
                   listItems.addAll(
-                    members.map(
-                      (credit) => _buildCard(
-                        id: credit.id,
-                        path: credit.profilePath,
-                        title: credit.name,
-                        subtitle: credit.job,
+                    casts.map(
+                      (cast) => _buildCard(
+                        id: cast.id,
+                        path: cast.profilePath,
+                        title: cast.character,
+                        subtitle: cast.name,
                       ),
                     ),
                   );
-                });
+                }
               }
-            }
 
-            if (listItems.isEmpty) {
-              return CustomScrollView(
-                slivers: [
-                  SliverFillRemaining(
-                    child: EmptyCard(
-                      'Wah, tidak ada data di kategori ini',
-                      bottomSpacing: bottomSpacing,
+              if (isAll || isCrew) {
+                if (crews.isNotEmpty) {
+                  listItems.add(
+                    Padding(
+                      padding: EdgeInsets.only(
+                        bottom: 12,
+                        top: (isAll && casts.isNotEmpty) ? 16 : 0,
+                      ),
+                      child: _buildLabel(title: 'Kru', count: crews),
                     ),
-                  ),
-                ],
-              );
-            }
+                  );
 
-            return ListView.builder(
-              itemCount: listItems.length,
-              itemBuilder: (context, index) {
-                return listItems[index];
-              },
-            );
-          },
-          error: (error, stackTrace) =>
-              Center(child: Text('Terjadi kesalahan: $error')),
-          loading: () => Center(child: CircularProgressIndicator.adaptive()),
+                  final Map<String, List<MemberModel>> groupedCrew = {};
+                  for (var c in crews) {
+                    final department = c.department ?? 'Lainnya';
+                    groupedCrew.putIfAbsent(department, () => []).add(c);
+                  }
+
+                  groupedCrew.forEach((department, members) {
+                    listItems.add(
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                        child: Text(
+                          department,
+                          style: GoogleFonts.plusJakartaSans(
+                            color: Color(0xFF555555),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    );
+
+                    listItems.addAll(
+                      members.map(
+                        (credit) => _buildCard(
+                          id: credit.id,
+                          path: credit.profilePath,
+                          title: credit.name,
+                          subtitle: credit.job,
+                        ),
+                      ),
+                    );
+                  });
+                }
+              }
+
+              if (listItems.isEmpty) {
+                return CustomScrollView(
+                  slivers: [
+                    SliverFillRemaining(
+                      child: EmptyCard(
+                        'Wah, tidak ada data di kategori ini',
+                        bottomSpacing: bottomSpacing,
+                      ),
+                    ),
+                  ],
+                );
+              }
+
+              return ListView.builder(
+                itemCount: listItems.length,
+                itemBuilder: (context, index) {
+                  return listItems[index];
+                },
+              );
+            },
+            error: (error, stackTrace) =>
+                Center(child: Text('Terjadi kesalahan: $error')),
+            loading: () => Center(child: CircularProgressIndicator.adaptive()),
+          ),
         ),
       ),
     );
